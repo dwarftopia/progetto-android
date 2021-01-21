@@ -1,3 +1,10 @@
 <resources>
+    <array name="modes">
+        <item>Rapid-Fire (30s)</item>
+        <item>Balanced (60s)</item>
+        <item>Slow and Steady (180s)</item>
+        <item>Zen Mode (???s)</item>
+    </array>
+
     <string name="app_name">Ultimate Bug Catcher</string>
 </resources>

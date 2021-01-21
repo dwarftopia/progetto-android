@@ -2,10 +2,13 @@ package com.example.progetto_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -19,20 +22,41 @@ import java.util.concurrent.Semaphore;
 public class MainActivity extends AppCompatActivity {
 
     public static String TAG = "lolcat";
+    private TextView lblMainTitle;
+    private Button btnStartGame;
+    private Button btnExitApp;
+    private int mode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView lblMainTitle = (TextView) findViewById(R.id.lblMainTitle);
-        Button btnStartGame = (Button) findViewById(R.id.btnStartGame);
-        Button btnExitApp = (Button) findViewById(R.id.btnExitApp);
+        lblMainTitle = (TextView) findViewById(R.id.lblMainTitle);
+        btnStartGame = (Button) findViewById(R.id.btnStartGame);
+        btnExitApp = (Button) findViewById(R.id.btnExitApp);
 
         btnStartGame.setAlpha(0);
         btnStartGame.setEnabled(false);
         btnExitApp.setAlpha(0);
         btnExitApp.setEnabled(false);
+        lblMainTitle.setText("");
+        startupAnimation();
 
+        btnStartGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseMode();
+            }
+        });
+        btnExitApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exitApp();
+            }
+        });
+    }
+
+    private void startupAnimation(){    //scrive il titolo a mo' di "terminale", fade in dei bottoni
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -72,6 +96,49 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
 
+    private void chooseMode(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Choose your game mode:");
+        builder.setCancelable(true);
+
+        builder.setSingleChoiceItems(getResources().getStringArray(R.array.modes), 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mode = which;
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void exitApp(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Quit");
+        builder.setMessage("Are you sure you want to quit the game?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finishAffinity();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void onBackPressed(){
+        exitApp();
     }
 }
