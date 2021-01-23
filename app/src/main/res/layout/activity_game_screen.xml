@@ -6,30 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".GameScreen">
 
-    <RelativeLayout
-        android:id="@+id/layout_game"
+    <LinearLayout
+        android:id="@+id/layout_drawArea"
         android:layout_width="380dp"
-        android:layout_height="500dp"
-        android:background="@drawable/frame"
+        android:layout_height="650dp"
+        android:gravity="bottom"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75">
+        app:layout_constraintVertical_bias="0.5">
 
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/layout_scoreArea"
+            android:layout_width="380dp"
+            android:layout_height="145dp"
+            android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/imgFrog"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/frog" />
+            <ImageView
+                android:id="@+id/imgFrog1"
+                android:layout_width="250dp"
+                android:layout_height="145dp"
+                app:srcCompat="@drawable/frog1" />
+
+            <TextView
+                android:id="@+id/lblTimer"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/frame"
+                android:fontFamily="serif-monospace"
+                android:gravity="center_horizontal|center_vertical"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_spawnArea"
+            android:layout_width="380dp"
+            android:layout_height="500dp"
+            android:background="@drawable/frame">
+
+            <ImageView
+                android:id="@+id/imgfrog2"
+                android:layout_width="250dp"
+                android:layout_height="71dp"
+                app:srcCompat="@drawable/frog2" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnStartGame;
     private Button btnExitApp;
     private int mode;
+    private int time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         btnStartGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseMode();
+                chooseOptions();
             }
         });
         btnExitApp.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void chooseMode(){
+    private void chooseOptions(){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Choose your game mode:");
         builder.setCancelable(true);
@@ -108,6 +109,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 mode = which;
                 dialog.dismiss();
+                chooseTime();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void chooseTime(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Choose your game length:");
+        builder.setCancelable(true);
+
+        builder.setSingleChoiceItems(getResources().getStringArray(R.array.times), 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                time = which;
+                dialog.dismiss();
+                Intent t = new Intent(MainActivity.this, GameScreen.class);
+                t.putExtra("mode", mode);
+                t.putExtra("time", time);
+                startActivity(t);
             }
         });
         AlertDialog alert = builder.create();

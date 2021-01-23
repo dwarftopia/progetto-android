@@ -1,9 +1,14 @@
 <resources>
     <array name="modes">
-        <item>Rapid-Fire (30s)</item>
-        <item>Balanced (60s)</item>
-        <item>Slow and Steady (180s)</item>
-        <item>Zen Mode (???s)</item>
+        <item>Easy</item>
+        <item>Normal</item>
+        <item>Hard</item>
+        <item>Java</item>
+    </array>
+    <array name="times">
+        <item>short (30s)</item>
+        <item>normal (60s)</item>
+        <item>long (180s)</item>
     </array>
 
     <string name="app_name">Ultimate Bug Catcher</string>
