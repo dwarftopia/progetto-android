@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                                 lblMainTitle.setText(finalAux + "_");
                             }
                         });
-                        Thread.sleep(150);
+                        Thread.sleep(125);
                     }
 
                     runOnUiThread(new Runnable() {

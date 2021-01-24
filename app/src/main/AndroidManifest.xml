@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Progettoandroid">
-        <activity android:name=".GameScreen"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".GameScreen"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -20,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".TimerService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

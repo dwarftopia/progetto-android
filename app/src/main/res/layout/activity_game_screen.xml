@@ -31,7 +31,7 @@
                 app:srcCompat="@drawable/frog1" />
 
             <TextView
-                android:id="@+id/lblTimer"
+                android:id="@+id/lblCountdown"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -55,6 +55,20 @@
                 android:layout_width="250dp"
                 android:layout_height="71dp"
                 app:srcCompat="@drawable/frog2" />
+
+            <ImageView
+                android:id="@+id/imgBug1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="199dp"
+                android:layout_marginTop="417dp"
+                android:layout_marginEnd="131dp"
+                android:layout_marginBottom="34dp"
+                app:srcCompat="@drawable/bug" />
         </RelativeLayout>
 
     </LinearLayout>
