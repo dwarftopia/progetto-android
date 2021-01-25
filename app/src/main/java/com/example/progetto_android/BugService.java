@@ -94,9 +94,9 @@ public class BugService extends Service {
 
     private void moveBug(){
         int left = new Random().nextInt(324) + 3;
-        int top = new Random().nextInt(494) + 3;
-        int right = 380 - left - 50;
-        int bottom = 500 - top - 50;
+        int top = new Random().nextInt(444) + 3;
+        int right = 330 - left;
+        int bottom = 450 - top;
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);

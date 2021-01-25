@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     public void exitApp(){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Quit");
-        builder.setMessage("Are you sure you want to quit the game?");
+        builder.setMessage("Are you sure you want to quit the app?");
         builder.setCancelable(false);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override

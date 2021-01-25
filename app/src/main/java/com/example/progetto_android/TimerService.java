@@ -26,6 +26,7 @@ public class TimerService extends Service {
             @Override
             public void run() {
                 Handler handler = new Handler(Looper.getMainLooper());
+
                 do{
                     try {
                         Thread.sleep(1000);
@@ -50,8 +51,7 @@ public class TimerService extends Service {
 
     public void onDestroy() {
         isRunning=false;
-        Toast.makeText(TimerService.this, "DGHAHDHAFDSJ", Toast.LENGTH_LONG);
-        GameScreen.endGame();
+
     }
 
     public static boolean isRunning(){

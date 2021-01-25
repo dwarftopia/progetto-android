@@ -23,7 +23,7 @@ public class GameScreen extends AppCompatActivity {
     private static TextView lblCountdown;
     public static ImageView imgBug;
     private TextView lblScore;
-    private int score;
+    private static int score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +48,7 @@ public class GameScreen extends AppCompatActivity {
         lblScore = (TextView) findViewById(R.id.lblScore);
         imgBug = (ImageView) findViewById(R.id.imgBug);
         imgBug.setEnabled(false);
+        imgBug.setAlpha(0.0f);
         imgBug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,5 +92,30 @@ public class GameScreen extends AppCompatActivity {
 
     public static void endGame(){
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(GameScreen.this);
+        builder.setTitle("Stop");
+        builder.setMessage("Are you sure you want to interrupt the game?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                stopService(new Intent(GameScreen.this, TimerService.class));
+                dialog.dismiss();
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        android.app.AlertDialog alert = builder.create();
+        alert.show();
     }
 }
