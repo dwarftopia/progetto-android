@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.5">
 
         <LinearLayout
-            android:id="@+id/layout_scoreArea"
+            android:id="@+id/layout_topArea"
             android:layout_width="380dp"
             android:layout_height="145dp"
             android:orientation="horizontal">
@@ -30,18 +30,44 @@
                 android:layout_height="145dp"
                 app:srcCompat="@drawable/frog1" />
 
-            <TextView
-                android:id="@+id/lblCountdown"
+            <LinearLayout
+                android:id="@+id/layout_scoreArea"
                 android:layout_width="130dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/frame"
-                android:fontFamily="serif-monospace"
-                android:gravity="center_horizontal|center_vertical"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_height="145dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblCountdown"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/frame"
+                    android:fontFamily="serif-monospace"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblSeparator"
+                    android:layout_width="130dp"
+                    android:layout_height="24dp"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:id="@+id/lblScore"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/frame"
+                    android:fontFamily="serif-monospace"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout
@@ -51,13 +77,13 @@
             android:background="@drawable/frame">
 
             <ImageView
-                android:id="@+id/imgfrog2"
+                android:id="@+id/imgFrog2"
                 android:layout_width="250dp"
                 android:layout_height="71dp"
                 app:srcCompat="@drawable/frog2" />
 
             <ImageView
-                android:id="@+id/imgBug1"
+                android:id="@+id/imgBug"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentStart="true"

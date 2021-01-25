@@ -2,11 +2,9 @@ package com.example.progetto_android;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.provider.Settings;
 import android.widget.Toast;
 
 public class TimerService extends Service {
@@ -22,13 +20,12 @@ public class TimerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
+        time = intent.getIntExtra("time", 60);
         isRunning=true;
-        time = intent.getIntExtra("time", 0);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Handler handler = new Handler(Looper.getMainLooper());
-
                 do{
                     try {
                         Thread.sleep(1000);
@@ -45,7 +42,6 @@ public class TimerService extends Service {
                         time--;
                     }
                 } while(isRunning && time>0);
-
                 stopSelf();
             }
         }).start();
@@ -56,5 +52,9 @@ public class TimerService extends Service {
         isRunning=false;
         Toast.makeText(TimerService.this, "DGHAHDHAFDSJ", Toast.LENGTH_LONG);
         GameScreen.endGame();
+    }
+
+    public static boolean isRunning(){
+        return isRunning;
     }
 }

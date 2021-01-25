@@ -3,7 +3,7 @@
         <item>Easy</item>
         <item>Normal</item>
         <item>Hard</item>
-        <item>Java</item>
+        <!--<item>Java</item>-->
     </array>
     <array name="times">
         <item>short (30s)</item>
