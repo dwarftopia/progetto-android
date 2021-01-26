@@ -13,7 +13,6 @@
         <activity
             android:name=".GameScreen"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -33,5 +32,5 @@
             android:enabled="true"
             android:exported="true" />
     </application>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>
