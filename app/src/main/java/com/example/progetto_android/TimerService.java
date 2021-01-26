@@ -20,7 +20,17 @@ public class TimerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        time = intent.getIntExtra("time", 60);
+        switch(intent.getIntExtra("time", 1)){
+            case 0:
+                time=30;
+                break;
+            case 1:
+                time=60;
+                break;
+            case 2:
+                time=180;
+                break;
+        }
         isRunning=true;
         new Thread(new Runnable() {
             @Override
@@ -51,7 +61,7 @@ public class TimerService extends Service {
 
     public void onDestroy() {
         isRunning=false;
-
+        GameScreen.endGame();
     }
 
     public static boolean isRunning(){

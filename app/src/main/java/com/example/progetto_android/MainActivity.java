@@ -1,12 +1,17 @@
 package com.example.progetto_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -27,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private Button btnExitApp;
     private int mode;
     private int time;
+
+    private static final int MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE=1;
+    public static String myPermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private static boolean permissionDenied=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
                 exitApp();
             }
         });
+
+        if(ContextCompat.checkSelfPermission(MainActivity.this, myPermission)!=PackageManager.PERMISSION_GRANTED)
+            requestPermission();
     }
 
     private void startupAnimation(){    //scrive il titolo a mo' di "terminale", fade in dei bottoni
@@ -162,5 +175,37 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         exitApp();
+    }
+
+    private void requestPermission(){
+        if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, myPermission)){   //se true, l'utente ha rifiutato il permesso in passato
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Storage access");
+            builder.setMessage("In order to save game results, the internal storage permission is required.");
+            builder.setCancelable(true);
+            builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{myPermission}, MainActivity.MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
+                }
+            });
+            android.app.AlertDialog alert = builder.create();
+            alert.show();
+        } else {
+            if(!permissionDenied) {  //se il flag è true vuol dire che il permesso non è mai stato chiesto
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{myPermission}, MainActivity.MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
+            }
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE:
+                if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    permissionDenied=true;
+                    return;
+                }
+        }
     }
 }
