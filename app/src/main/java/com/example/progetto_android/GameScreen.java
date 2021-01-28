@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,11 +40,16 @@ public class GameScreen extends AppCompatActivity {
     private static int score;
     private static String stats;
     private static AppCompatActivity activity = null;
+    private LinearLayout drawArea;
+    private static boolean stopped=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
+
+        drawArea = (LinearLayout) findViewById(R.id.layout_drawArea);
+        drawArea.setWillNotDraw(false);
 
         Intent t = getIntent();
         mode = t.getIntExtra("mode", 1);
@@ -69,6 +75,8 @@ public class GameScreen extends AppCompatActivity {
         setCountdownText(time);
         lblScore.setText("Score = 0");
 
+        DrawView drawView = new DrawView(this);
+        drawView.draw();
         startGame();
     }
 
@@ -100,41 +108,43 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public static void endGame(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Game end!");
-        stats += "Score: " + score;
-        String message = stats + "\n\n";
-        if(ContextCompat.checkSelfPermission(activity, MainActivity.myPermission)!=PackageManager.PERMISSION_GRANTED){
-            message += "It is not possible to save the result to internal storage without the requested permission.";
-            builder.setNeutralButton("Return to menu", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    activity.finish();
-                }
-            });
-        } else {
-            message += "Do you want to save your result to your phone before returning to the main menu?";
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    saveScore();
-                    dialog.dismiss();
-                    activity.finish();
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    activity.finish();
-                }
-            });
-        }
-        builder.setMessage(message);
+        if(!stopped){
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            builder.setTitle("Game end!");
+            stats += "Score: " + score;
+            String message = stats + "\n\n";
+            if(ContextCompat.checkSelfPermission(activity, MainActivity.myPermission)!=PackageManager.PERMISSION_GRANTED){
+                message += "It is not possible to save the result to internal storage without the requested permission.";
+                builder.setNeutralButton("Return to menu", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        activity.finish();
+                    }
+                });
+            } else {
+                message += "Do you want to save your result to your phone before returning to the main menu?";
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveScore();
+                        dialog.dismiss();
+                        activity.finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        activity.finish();
+                    }
+                });
+            }
+            builder.setMessage(message);
 
-        AlertDialog alert = builder.create();
-        alert.show();
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
     @Override
@@ -146,6 +156,7 @@ public class GameScreen extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                stopped=true;
                 stopService(new Intent(GameScreen.this, TimerService.class));
                 dialog.dismiss();
                 finish();
@@ -171,7 +182,7 @@ public class GameScreen extends AppCompatActivity {
             f.mkdirs();
         fileName += "/game-"
                 + Calendar.getInstance().get(Calendar.YEAR)
-                + Calendar.getInstance().get(Calendar.MONTH)
+                + (Calendar.getInstance().get(Calendar.MONTH) + 1)
                 + Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
                 + "-"
                 + Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
@@ -188,5 +199,14 @@ public class GameScreen extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static int toPixels(int dp){
+        int px = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                activity.getResources().getDisplayMetrics()
+        );
+        return px;
     }
 }

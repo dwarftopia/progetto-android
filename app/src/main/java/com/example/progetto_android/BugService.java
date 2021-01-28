@@ -83,15 +83,6 @@ public class BugService extends Service {
     public void onDestroy(){
     }
 
-    private int toPixels(int dp){
-        int px = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                dp,
-                getResources().getDisplayMetrics()
-        );
-        return px;
-    }
-
     private void moveBug(){
         int left = new Random().nextInt(324) + 3;
         int top = new Random().nextInt(444) + 3;
@@ -100,7 +91,7 @@ public class BugService extends Service {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(toPixels(left),toPixels(top),toPixels(right),toPixels(bottom));
+        layoutParams.setMargins(GameScreen.toPixels(left),GameScreen.toPixels(top),GameScreen.toPixels(right),GameScreen.toPixels(bottom));
         GameScreen.imgBug.setLayoutParams(layoutParams);
         int angle = new Random().nextInt(360);
         GameScreen.imgBug.setRotation(angle);
