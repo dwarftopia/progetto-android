@@ -3,6 +3,7 @@ package com.example.progetto_android;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.view.View;
 
 public class DrawView extends View {
@@ -16,6 +17,15 @@ public class DrawView extends View {
 
     public DrawView(Context context){
         super(context);
+        init();
+    }
+    public DrawView(Context context, AttributeSet attrs){
+        super(context, attrs);
+        init();
+    }
+    public DrawView(Context context, AttributeSet attrs, int defStyle){
+        super(context, attrs, defStyle);
+        init();
     }
 
     @Override

@@ -1,34 +1,21 @@
 package com.example.progetto_android;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class GameScreen extends AppCompatActivity {
 
@@ -39,24 +26,25 @@ public class GameScreen extends AppCompatActivity {
     private TextView lblScore;
     private static int score;
     private static String stats;
-    private static AppCompatActivity activity = null;
-    private LinearLayout drawArea;
+    public static AppCompatActivity activity = null;
+    //private LinearLayout drawArea;
     private static boolean stopped=false;
+    //private DrawView drawView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
-        drawArea = (LinearLayout) findViewById(R.id.layout_drawArea);
-        drawArea.setWillNotDraw(false);
+        /*drawArea = (LinearLayout) findViewById(R.id.layout_drawArea);
+        drawArea.setWillNotDraw(false);*/
 
         Intent t = getIntent();
         mode = t.getIntExtra("mode", 1);
         time = t.getIntExtra("time", 1);
         score = 0;
-        stats = "Mode: " + getResources().getStringArray(R.array.modes)[mode] + "\n";
-        stats += "Time: " + getResources().getStringArray(R.array.times)[time] + "\n";
+        stats = "Mode:\n" + getResources().getStringArray(R.array.modes)[mode] + "\n\n";
+        stats += "Time:\n" + getResources().getStringArray(R.array.times)[time] + "\n\n";
         activity = this;
 
         lblCountdown = (TextView) findViewById(R.id.lblCountdown);
@@ -75,8 +63,10 @@ public class GameScreen extends AppCompatActivity {
         setCountdownText(time);
         lblScore.setText("Score = 0");
 
-        DrawView drawView = new DrawView(this);
-        drawView.draw();
+        /*Log.i(MainActivity.TAG, "before drawview");
+        drawView = (DrawView) findViewById(R.id.DrawView);
+        Log.i(MainActivity.TAG, "after drawview");*/
+
         startGame();
     }
 
@@ -101,6 +91,7 @@ public class GameScreen extends AppCompatActivity {
                 bug.putExtra("mode", mode);
                 startService(timer);
                 startService(bug);
+                //drawView.draw();
             }
         });
         AlertDialog alert = builder.create();
@@ -109,41 +100,10 @@ public class GameScreen extends AppCompatActivity {
 
     public static void endGame(){
         if(!stopped){
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            builder.setTitle("Game end!");
-            stats += "Score: " + score;
-            String message = stats + "\n\n";
-            if(ContextCompat.checkSelfPermission(activity, MainActivity.myPermission)!=PackageManager.PERMISSION_GRANTED){
-                message += "It is not possible to save the result to internal storage without the requested permission.";
-                builder.setNeutralButton("Return to menu", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        activity.finish();
-                    }
-                });
-            } else {
-                message += "Do you want to save your result to your phone before returning to the main menu?";
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        saveScore();
-                        dialog.dismiss();
-                        activity.finish();
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        activity.finish();
-                    }
-                });
-            }
-            builder.setMessage(message);
-
-            AlertDialog alert = builder.create();
-            alert.show();
+            stats += "Score:\n" + score;
+            Intent t = new Intent(GameScreen.activity, ResultScreen.class);
+            t.putExtra("stats", stats);
+            activity.startActivity(t);
         }
     }
 
@@ -174,7 +134,7 @@ public class GameScreen extends AppCompatActivity {
     }
 
     private static void saveScore(){
-        String fileName = Environment.getExternalStorageDirectory().getPath().toString()
+        String fileName = Environment.getExternalStorageDirectory().getPath()
                 + "/"
                 + activity.getResources().getString(R.string.app_name);
         File f = new File(fileName);

@@ -97,6 +97,11 @@
                 app:srcCompat="@drawable/bug" />
         </RelativeLayout>
 
+
+        <com.example.progetto_android.DrawView
+            android:id="@+id/DrawView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
