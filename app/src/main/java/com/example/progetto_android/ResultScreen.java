@@ -1,5 +1,6 @@
 package com.example.progetto_android;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +28,10 @@ public class ResultScreen extends Activity {
 
     private ConstraintLayout layout_bitmapArea;
 
+    private static final int MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE=1;
+    private static String myPermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private static boolean permissionDenied=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +49,8 @@ public class ResultScreen extends Activity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!MainActivity.permissionDenied){
-                    if(ContextCompat.checkSelfPermission(ResultScreen.this, MainActivity.myPermission)!= PackageManager.PERMISSION_GRANTED)
+                if(permissionDenied){
+                    if(ContextCompat.checkSelfPermission(ResultScreen.this, myPermission)!= PackageManager.PERMISSION_GRANTED)
                         requestPermission();
                     saveResult();
                     finish();
@@ -65,7 +70,7 @@ public class ResultScreen extends Activity {
     }
 
     private void requestPermission(){
-        if(ActivityCompat.shouldShowRequestPermissionRationale(ResultScreen.this, MainActivity.myPermission)){   //se true, l'utente ha rifiutato il permesso in passato
+        if(ActivityCompat.shouldShowRequestPermissionRationale(ResultScreen.this, myPermission)){   //se true, l'utente ha rifiutato il permesso in passato
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ResultScreen.this);
             builder.setTitle("Storage access");
             builder.setMessage("In order to save game results, the internal storage permission is required.");
@@ -74,23 +79,23 @@ public class ResultScreen extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-                    ActivityCompat.requestPermissions(ResultScreen.this, new String[]{MainActivity.myPermission}, MainActivity.MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
+                    ActivityCompat.requestPermissions(ResultScreen.this, new String[]{myPermission}, MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
                 }
             });
             android.app.AlertDialog alert = builder.create();
             alert.show();
         } else {
-            if(!MainActivity.permissionDenied) {  //se il flag è false vuol dire che il permesso non è mai stato chiesto
-                ActivityCompat.requestPermissions(ResultScreen.this, new String[]{MainActivity.myPermission}, MainActivity.MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
+            if(permissionDenied) {  //se il flag è false vuol dire che il permesso non è mai stato chiesto
+                ActivityCompat.requestPermissions(ResultScreen.this, new String[]{myPermission}, MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
             }
         }
     }
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
-            case MainActivity.MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE:
+            case MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE:
                 if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    MainActivity.permissionDenied=true;
+                    permissionDenied=true;
                     return;
                 }
         }

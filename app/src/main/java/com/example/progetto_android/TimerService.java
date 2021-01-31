@@ -36,7 +36,9 @@ public class TimerService extends Service {
                 Handler handler = new Handler(Looper.getMainLooper());
 
                 isRunning=true;
-                GameScreen.mediaPlayer.start();
+                if(MainActivity.sharedPref.getBoolean("audioOn", true)){
+                    GameScreen.mediaPlayer.start();
+                }
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

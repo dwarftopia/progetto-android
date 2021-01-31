@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,9 +22,10 @@ public class GameScreen extends AppCompatActivity {
     private TextView lblScore;
     private static int score;
     private static String stats;
-    public static AppCompatActivity activity = null;
-    private static boolean stopped=false;
-    public static MediaPlayer mediaPlayer;
+    public static AppCompatActivity activity;
+    private static boolean stopped;
+    public static MediaPlayer mediaPlayer = null;
+    private static boolean audioOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,7 @@ public class GameScreen extends AppCompatActivity {
         stats = "Mode:\n\t" + getResources().getStringArray(R.array.modes)[mode] + "\n";
         stats += "Time:\n\t" + getResources().getStringArray(R.array.times)[time] + "\n";
         activity = this;
+        stopped = false;
 
         lblCountdown = (TextView) findViewById(R.id.lblCountdown);
         lblScore = (TextView) findViewById(R.id.lblScore);
@@ -57,19 +57,13 @@ public class GameScreen extends AppCompatActivity {
         setCountdownText(time);
         lblScore.setText("Score = 0");
 
-        mediaPlayer = MediaPlayer.create(GameScreen.this, R.raw.game_music);
-        try {
-            mediaPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
+        audioOn = MainActivity.sharedPref.getBoolean("audioOn", true);
+
+        if(audioOn){
+            mediaPlayer = MediaPlayer.create(this, R.raw.game_music);
+            mediaPlayer.setLooping(true);
         }
-        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                startGame();
-            }
-        });
-        mediaPlayer.setLooping(true);
+        startGame();
     }
 
 
@@ -85,15 +79,18 @@ public class GameScreen extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameScreen.this);
         builder.setTitle("Game start!");
         builder.setMessage("Press OK to start the game.");
-        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent timer = new Intent(GameScreen.this, TimerService.class);
                 timer.putExtra("time", time);
+                Log.i(MainActivity.TAG, "intent");
                 Intent bug = new Intent(GameScreen.this, BugService.class);
                 bug.putExtra("mode", mode);
-                startService(timer);
+                dialog.dismiss();
+                Log.i(MainActivity.TAG, "start bug");
                 startService(bug);
+                startService(timer);
             }
         });
         AlertDialog alert = builder.create();
@@ -101,9 +98,11 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public static void endGame(){
-        mediaPlayer.stop();
-        mediaPlayer.release();
-        mediaPlayer=null;
+        if(audioOn){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer=null;
+        }
         if(!stopped){
             stats += "Score:\n\t" + score;
             Intent t = new Intent(GameScreen.activity, ResultScreen.class);
@@ -138,34 +137,6 @@ public class GameScreen extends AppCompatActivity {
         android.app.AlertDialog alert = builder.create();
         alert.show();
     }
-
-    /*private static void saveScore(){
-        String fileName = Environment.getExternalStorageDirectory().getPath()
-                + "/"
-                + activity.getResources().getString(R.string.app_name);
-        File f = new File(fileName);
-        if(!f.exists()) //se la cartella non esiste la creo
-            f.mkdirs();
-        fileName += "/game-"
-                + Calendar.getInstance().get(Calendar.YEAR)
-                + (Calendar.getInstance().get(Calendar.MONTH) + 1)
-                + Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-                + "-"
-                + Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-                + Calendar.getInstance().get(Calendar.MINUTE)
-                + Calendar.getInstance().get(Calendar.SECOND)
-                //+ ".png";
-                + ".txt";
-        //Bitmap bitmap = null;
-
-        try {
-            FileOutputStream out = new FileOutputStream(fileName);
-            //bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public static int toPixels(int dp){
         int px = (int) TypedValue.applyDimension(

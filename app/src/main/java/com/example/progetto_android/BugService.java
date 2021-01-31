@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.util.TypedValue;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 import java.util.Random;
-import java.util.Timer;
 
 public class BugService extends Service {
 
@@ -26,6 +25,7 @@ public class BugService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
+        Log.i(MainActivity.TAG, "onstart");
         mode = intent.getIntExtra("mode", 1);
         switch(mode){
             case 0:
@@ -44,8 +44,9 @@ public class BugService extends Service {
             @Override
             public void run() {
                 Handler handler = new Handler(Looper.getMainLooper());
-
+                Log.i(MainActivity.TAG, "before while");
                 while(TimerService.isRunning()){
+                    Log.i(MainActivity.TAG, "in while");
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -74,6 +75,7 @@ public class BugService extends Service {
                         e.printStackTrace();
                     }
                 }
+                Log.i(MainActivity.TAG, "dead");
             }
         }).start();
 

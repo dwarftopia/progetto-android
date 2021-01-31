@@ -1,9 +1,10 @@
 package com.example.progetto_android;
 
-import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,9 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private int mode;
     private int time;
 
-    public static final int MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE=1;
-    public static String myPermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-    public static boolean permissionDenied=false;
+    public static SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         btnStartGame = (Button) findViewById(R.id.btnStartGame);
         btnExitApp = (Button) findViewById(R.id.btnExitApp);
         btnSettings = (Button) findViewById(R.id.btnSettings);
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
 
         startupAnimation();
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SettingsHelp.class));
+                startActivity(new Intent(MainActivity.this, SettingsScreen.class));
             }
         });
     }

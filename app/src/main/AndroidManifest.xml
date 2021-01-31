@@ -4,14 +4,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/frog"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="@drawable/frog"
         android:supportsRtl="true"
         android:theme="@style/Theme.Progettoandroid">
         <activity
-            android:name=".SettingsHelp"
+            android:name=".SettingsScreen"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ResultScreen"
