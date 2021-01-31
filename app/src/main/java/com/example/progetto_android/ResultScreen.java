@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -34,7 +33,6 @@ public class ResultScreen extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_result_screen);
         this.setFinishOnTouchOutside(false);
-        Log.i(MainActivity.TAG, "result started");
 
         Intent t = getIntent();
         Button btnSave = (Button) findViewById(R.id.btnSave);
@@ -46,22 +44,13 @@ public class ResultScreen extends Activity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(MainActivity.TAG, "onclick save");
                 if(!MainActivity.permissionDenied){
-                    if(ContextCompat.checkSelfPermission(ResultScreen.this, MainActivity.myPermission)!= PackageManager.PERMISSION_GRANTED){
-                        Log.i(MainActivity.TAG, "persmission");
+                    if(ContextCompat.checkSelfPermission(ResultScreen.this, MainActivity.myPermission)!= PackageManager.PERMISSION_GRANTED)
                         requestPermission();
-                        Log.i(MainActivity.TAG, "persmission request");
-                    }
-                    else {
-                        Log.i(MainActivity.TAG, "before save");
-                        saveResult();
-                        Log.i(MainActivity.TAG, "after save");
-                        finish();
-                        GameScreen.activity.finish();
-                    }
+                    saveResult();
+                    finish();
+                    GameScreen.activity.finish();
                 } else {
-                    Log.i(MainActivity.TAG, "toast");
                     Toast.makeText(ResultScreen.this, "It is not possible to save the result to internal storage without the requested permission.", Toast.LENGTH_LONG).show();
                 }
             }
@@ -69,7 +58,6 @@ public class ResultScreen extends Activity {
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(MainActivity.TAG, "close");
                 finish();
                 GameScreen.activity.finish();
             }

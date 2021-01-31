@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="400dp"
     android:layout_height="300dp"
+    android:background="@color/design_default_color_background"
     android:orientation="vertical"
     tools:context=".ResultScreen">
 
@@ -56,6 +57,7 @@
                 android:fontFamily="serif-monospace"
                 android:gravity="center_vertical"
                 android:lineSpacingExtra="8sp"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         btnSettings.setEnabled(false);
         lblMainTitle.setText("_");
 
+        int resID=getResources().getIdentifier("keyboard_type.mp3", "raw", getPackageName());
+        MediaPlayer mediaPlayer = MediaPlayer.create(this,resID);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -76,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
                     String aux = "";
 
                     for (int i=0; i<s.length(); i++){
-                        int n = new Random().nextInt(26) + 100;
-                        Thread.sleep(n);
                         aux += s.charAt(i);
                         String finalAux = aux;
                         runOnUiThread(new Runnable() {
@@ -86,23 +88,27 @@ public class MainActivity extends AppCompatActivity {
                                 lblMainTitle.setText(finalAux + "_");
                             }
                         });
+                        mediaPlayer.start();
+                        int n = new Random().nextInt(26) + 100;
+                        Thread.sleep(n);
                     }
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            try {
-                                Thread.sleep(750);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            lblMainTitle.setText(s);
                             btnStartGame.animate().alpha(1.0f).setDuration(750).start();
                             btnExitApp.animate().alpha(1.0f).setDuration(750).start();
                             btnSettings.animate().alpha(1.0f).setDuration(750).start();
                             btnStartGame.setEnabled(true);
                             btnExitApp.setEnabled(true);
                             btnSettings.setEnabled(true);
+                            try {
+                                Thread.sleep(750);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            lblMainTitle.setText(s);
+                            mediaPlayer.start();
                         }
                     });
                 } catch (InterruptedException e) {

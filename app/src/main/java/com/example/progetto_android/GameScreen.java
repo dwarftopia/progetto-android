@@ -22,24 +22,19 @@ public class GameScreen extends AppCompatActivity {
     private static int score;
     private static String stats;
     public static AppCompatActivity activity = null;
-    //private LinearLayout drawArea;
     private static boolean stopped=false;
-    //private DrawView drawView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
-        /*drawArea = (LinearLayout) findViewById(R.id.layout_drawArea);
-        drawArea.setWillNotDraw(false);*/
-
         Intent t = getIntent();
         mode = t.getIntExtra("mode", 1);
         time = t.getIntExtra("time", 1);
         score = 0;
-        stats = "Mode:\n" + getResources().getStringArray(R.array.modes)[mode] + "\n";
-        stats += "Time:\n" + getResources().getStringArray(R.array.times)[time] + "\n";
+        stats = "Mode:\n\t" + getResources().getStringArray(R.array.modes)[mode] + "\n";
+        stats += "Time:\n\t" + getResources().getStringArray(R.array.times)[time] + "\n";
         activity = this;
 
         lblCountdown = (TextView) findViewById(R.id.lblCountdown);
@@ -57,10 +52,6 @@ public class GameScreen extends AppCompatActivity {
         });
         setCountdownText(time);
         lblScore.setText("Score = 0");
-
-        /*Log.i(MainActivity.TAG, "before drawview");
-        drawView = (DrawView) findViewById(R.id.DrawView);
-        Log.i(MainActivity.TAG, "after drawview");*/
 
         startGame();
     }
@@ -86,7 +77,6 @@ public class GameScreen extends AppCompatActivity {
                 bug.putExtra("mode", mode);
                 startService(timer);
                 startService(bug);
-                //drawView.draw();
             }
         });
         AlertDialog alert = builder.create();
@@ -95,7 +85,7 @@ public class GameScreen extends AppCompatActivity {
 
     public static void endGame(){
         if(!stopped){
-            stats += "Score:\n" + score;
+            stats += "Score:\n\t" + score;
             Intent t = new Intent(GameScreen.activity, ResultScreen.class);
             t.putExtra("stats", stats);
             Log.i(MainActivity.TAG, "Start result");

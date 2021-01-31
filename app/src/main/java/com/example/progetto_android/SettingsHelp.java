@@ -5,19 +5,20 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsHelp extends AppCompatActivity {
-
-    private Switch swcAudio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_help);
 
-        swcAudio = (Switch) findViewById(R.id.swcAudio);
+        Switch swcAudio = (Switch) findViewById(R.id.swcAudio);
+        TextView lblExplanation = (TextView) findViewById(R.id.lblExplanation);
+        lblExplanation.setText(getResources().getString(R.string.explanation));
 
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         swcAudio.setChecked(sharedPref.getBoolean("audioOn", true));
