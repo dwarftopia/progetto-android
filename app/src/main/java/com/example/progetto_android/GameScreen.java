@@ -3,6 +3,7 @@ package com.example.progetto_android;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,8 +38,8 @@ public class GameScreen extends AppCompatActivity {
         mode = t.getIntExtra("mode", 1);
         time = t.getIntExtra("time", 1);
         score = 0;
-        stats = "Mode:\n" + getResources().getStringArray(R.array.modes)[mode] + "\n\n";
-        stats += "Time:\n" + getResources().getStringArray(R.array.times)[time] + "\n\n";
+        stats = "Mode:\n" + getResources().getStringArray(R.array.modes)[mode] + "\n";
+        stats += "Time:\n" + getResources().getStringArray(R.array.times)[time] + "\n";
         activity = this;
 
         lblCountdown = (TextView) findViewById(R.id.lblCountdown);
@@ -97,6 +98,7 @@ public class GameScreen extends AppCompatActivity {
             stats += "Score:\n" + score;
             Intent t = new Intent(GameScreen.activity, ResultScreen.class);
             t.putExtra("stats", stats);
+            Log.i(MainActivity.TAG, "Start result");
             activity.startActivity(t);
         }
     }

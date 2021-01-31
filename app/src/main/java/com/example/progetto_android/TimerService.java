@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.widget.Toast;
 
 public class TimerService extends Service {
     private static int time;
@@ -36,7 +35,12 @@ public class TimerService extends Service {
             @Override
             public void run() {
                 Handler handler = new Handler(Looper.getMainLooper());
-
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        GameScreen.setCountdownText(time);
+                    }
+                });
                 do{
                     try {
                         Thread.sleep(1000);

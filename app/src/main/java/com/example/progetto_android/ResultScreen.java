@@ -1,5 +1,6 @@
 package com.example.progetto_android;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -7,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,21 +19,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class ResultScreen extends AppCompatActivity {
+public class ResultScreen extends Activity {
 
     private ConstraintLayout layout_bitmapArea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_result_screen);
         this.setFinishOnTouchOutside(false);
-        getSupportActionBar().hide();
+        Log.i(MainActivity.TAG, "result started");
 
         Intent t = getIntent();
         Button btnSave = (Button) findViewById(R.id.btnSave);
@@ -43,16 +45,22 @@ public class ResultScreen extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(MainActivity.TAG, "onclick save");
                 if(!MainActivity.permissionDenied){
                     if(ContextCompat.checkSelfPermission(ResultScreen.this, MainActivity.myPermission)!= PackageManager.PERMISSION_GRANTED){
+                        Log.i(MainActivity.TAG, "persmission");
                         requestPermission();
+                        Log.i(MainActivity.TAG, "persmission request");
                     }
                     else {
+                        Log.i(MainActivity.TAG, "before save");
                         saveResult();
+                        Log.i(MainActivity.TAG, "after save");
                         finish();
                         GameScreen.activity.finish();
                     }
                 } else {
+                    Log.i(MainActivity.TAG, "toast");
                     Toast.makeText(ResultScreen.this, "It is not possible to save the result to internal storage without the requested permission.", Toast.LENGTH_LONG).show();
                 }
             }
@@ -60,6 +68,7 @@ public class ResultScreen extends AppCompatActivity {
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(MainActivity.TAG, "close");
                 finish();
                 GameScreen.activity.finish();
             }

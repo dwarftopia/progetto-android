@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
+    android:layout_width="400dp"
     android:layout_height="300dp"
     android:orientation="vertical"
     tools:context=".ResultScreen">
@@ -16,17 +16,17 @@
             android:id="@+id/imgFrogSide1"
             android:layout_width="100dp"
             android:layout_height="175dp"
+            android:src="@drawable/frog_side1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/frog_side1" />
+            app:layout_constraintVertical_bias="0.5" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_textArea"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:background="@drawable/frame"
             android:orientation="vertical"
@@ -41,13 +41,13 @@
                 android:id="@+id/imgFrogSide2"
                 android:layout_width="41dp"
                 android:layout_height="175dp"
+                android:src="@drawable/frog_side2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                app:srcCompat="@drawable/frog_side2" />
+                app:layout_constraintVertical_bias="0.5" />
 
             <TextView
                 android:id="@+id/lblResult"
@@ -56,13 +56,11 @@
                 android:fontFamily="serif-monospace"
                 android:gravity="center_vertical"
                 android:lineSpacingExtra="8sp"
-                android:text="TextView"
-                android:textAlignment="viewStart"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintHorizontal_bias="0.15"
                 app:layout_constraintStart_toEndOf="@+id/imgFrogSide2"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
@@ -76,7 +74,7 @@
 
         <Button
             android:id="@+id/btnSave"
-            android:layout_width="120dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:fontFamily="serif-monospace"
             android:text="Save result"
@@ -91,7 +89,7 @@
 
         <Button
             android:id="@+id/btnReturn"
-            android:layout_width="120dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:fontFamily="serif-monospace"
             android:text="Back to menu"
