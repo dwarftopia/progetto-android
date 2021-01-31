@@ -1,6 +1,5 @@
 package com.example.progetto_android;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -20,8 +19,7 @@ public class SettingsScreen extends AppCompatActivity {
         Switch swcAudio = (Switch) findViewById(R.id.swcAudio);
         Button btnBack = (Button) findViewById(R.id.btnBack);
 
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        swcAudio.setChecked(sharedPref.getBoolean("audioOn", true));
+        swcAudio.setChecked(MainActivity.sharedPref.getBoolean("audioOn", true));
 
         swcAudio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
