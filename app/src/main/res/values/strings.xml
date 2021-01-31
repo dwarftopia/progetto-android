@@ -1,8 +1,8 @@
 <resources>
     <array name="modes">
-        <item>Easy</item>
-        <item>Normal</item>
-        <item>Hard</item>
+        <item>easy</item>
+        <item>normal</item>
+        <item>hard</item>
         <!--<item>Java</item>-->
     </array>
     <array name="times">
