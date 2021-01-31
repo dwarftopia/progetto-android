@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView lblMainTitle;
     private Button btnStartGame;
     private Button btnExitApp;
+    private Button btnSettings;
     private int mode;
     private int time;
 
@@ -32,12 +35,8 @@ public class MainActivity extends AppCompatActivity {
         lblMainTitle = (TextView) findViewById(R.id.lblMainTitle);
         btnStartGame = (Button) findViewById(R.id.btnStartGame);
         btnExitApp = (Button) findViewById(R.id.btnExitApp);
+        btnSettings = (Button) findViewById(R.id.btnSettings);
 
-        btnStartGame.setAlpha(0);
-        btnStartGame.setEnabled(false);
-        btnExitApp.setAlpha(0);
-        btnExitApp.setEnabled(false);
-        lblMainTitle.setText("");
         startupAnimation();
 
         btnStartGame.setOnClickListener(new View.OnClickListener() {
@@ -52,12 +51,23 @@ public class MainActivity extends AppCompatActivity {
                 exitApp();
             }
         });
-
-        /*if(ContextCompat.checkSelfPermission(MainActivity.this, myPermission)!=PackageManager.PERMISSION_GRANTED)
-            requestPermission();*/
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SettingsHelp.class));
+            }
+        });
     }
 
     private void startupAnimation(){    //scrive il titolo a mo' di "terminale", fade in dei bottoni
+        btnStartGame.setAlpha(0);
+        btnStartGame.setEnabled(false);
+        btnExitApp.setAlpha(0);
+        btnExitApp.setEnabled(false);
+        btnSettings.setAlpha(0);
+        btnSettings.setEnabled(false);
+        lblMainTitle.setText("_");
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -66,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
                     String aux = "";
 
                     for (int i=0; i<s.length(); i++){
+                        int n = new Random().nextInt(26) + 100;
+                        Thread.sleep(n);
                         aux += s.charAt(i);
                         String finalAux = aux;
                         runOnUiThread(new Runnable() {
@@ -74,22 +86,23 @@ public class MainActivity extends AppCompatActivity {
                                 lblMainTitle.setText(finalAux + "_");
                             }
                         });
-                        Thread.sleep(125);
                     }
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            btnStartGame.animate().alpha(1.0f).setDuration(750).start();
-                            btnExitApp.animate().alpha(1.0f).setDuration(750).start();
-                            btnStartGame.setEnabled(true);
-                            btnExitApp.setEnabled(true);
                             try {
                                 Thread.sleep(750);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                             lblMainTitle.setText(s);
+                            btnStartGame.animate().alpha(1.0f).setDuration(750).start();
+                            btnExitApp.animate().alpha(1.0f).setDuration(750).start();
+                            btnSettings.animate().alpha(1.0f).setDuration(750).start();
+                            btnStartGame.setEnabled(true);
+                            btnExitApp.setEnabled(true);
+                            btnSettings.setEnabled(true);
                         }
                     });
                 } catch (InterruptedException e) {
@@ -163,36 +176,4 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed(){
         exitApp();
     }
-
-    /*private void requestPermission(){
-        if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, myPermission)){   //se true, l'utente ha rifiutato il permesso in passato
-            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Storage access");
-            builder.setMessage("In order to save game results, the internal storage permission is required.");
-            builder.setCancelable(true);
-            builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{myPermission}, MainActivity.MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
-                }
-            });
-            android.app.AlertDialog alert = builder.create();
-            alert.show();
-        } else {
-            if(!permissionDenied) {  //se il flag è true vuol dire che il permesso non è mai stato chiesto
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{myPermission}, MainActivity.MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
-            }
-        }
-    }
-
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE:
-                if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    permissionDenied=true;
-                    return;
-                }
-        }
-    }*/
 }
