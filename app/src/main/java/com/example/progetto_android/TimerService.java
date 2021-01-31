@@ -70,6 +70,7 @@ public class TimerService extends Service {
 
     public void onDestroy() {
         isRunning=false;
+        BugService.setRunning(false);
         GameScreen.endGame();
     }
 

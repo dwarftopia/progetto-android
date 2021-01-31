@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.RelativeLayout;
 
 import java.util.Random;
@@ -15,6 +14,7 @@ public class BugService extends Service {
     private int mode;
     private int intervalBase;
     private static boolean tapped=false;
+    private static boolean isRunning=false;
 
     public BugService() { }
 
@@ -25,7 +25,6 @@ public class BugService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        Log.i(MainActivity.TAG, "onstart");
         mode = intent.getIntExtra("mode", 1);
         switch(mode){
             case 0:
@@ -39,14 +38,12 @@ public class BugService extends Service {
                 intervalBase = 1000;
                 break;
         }
-
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Handler handler = new Handler(Looper.getMainLooper());
-                Log.i(MainActivity.TAG, "before while");
-                while(TimerService.isRunning()){
-                    Log.i(MainActivity.TAG, "in while");
+                isRunning=true;
+                do{
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -74,8 +71,7 @@ public class BugService extends Service {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                }
-                Log.i(MainActivity.TAG, "dead");
+                } while(isRunning);
             }
         }).start();
 
@@ -83,6 +79,7 @@ public class BugService extends Service {
     }
 
     public void onDestroy(){
+        isRunning=false;
     }
 
     private void moveBug(){
@@ -109,5 +106,9 @@ public class BugService extends Service {
 
     public static void imageTapped(){
         tapped=true;
+    }
+
+    public static void setRunning(boolean r){
+        isRunning=r;
     }
 }

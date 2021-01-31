@@ -52,7 +52,7 @@
 
             <TextView
                 android:id="@+id/lblResult"
-                android:layout_width="130dp"
+                android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:fontFamily="serif-monospace"
                 android:gravity="center_vertical"
@@ -62,7 +62,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toEndOf="@+id/imgFrogSide2"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
