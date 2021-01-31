@@ -30,17 +30,20 @@ public class TimerService extends Service {
                 time=180;
                 break;
         }
-        isRunning=true;
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Handler handler = new Handler(Looper.getMainLooper());
+
+                isRunning=true;
+                GameScreen.mediaPlayer.start();
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         GameScreen.setCountdownText(time);
                     }
                 });
+
                 do{
                     try {
                         Thread.sleep(1000);

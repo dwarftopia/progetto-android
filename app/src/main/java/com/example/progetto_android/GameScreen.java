@@ -2,12 +2,15 @@ package com.example.progetto_android;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.IOException;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +26,7 @@ public class GameScreen extends AppCompatActivity {
     private static String stats;
     public static AppCompatActivity activity = null;
     private static boolean stopped=false;
+    public static MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +57,21 @@ public class GameScreen extends AppCompatActivity {
         setCountdownText(time);
         lblScore.setText("Score = 0");
 
-        startGame();
+        mediaPlayer = MediaPlayer.create(GameScreen.this, R.raw.game_music);
+        try {
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                startGame();
+            }
+        });
+        mediaPlayer.setLooping(true);
     }
+
 
     public static void setCountdownText(int t){
         String aux = ((t/60)<10)?"0":"";
@@ -84,6 +101,9 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public static void endGame(){
+        mediaPlayer.stop();
+        mediaPlayer.release();
+        mediaPlayer=null;
         if(!stopped){
             stats += "Score:\n\t" + score;
             Intent t = new Intent(GameScreen.activity, ResultScreen.class);
