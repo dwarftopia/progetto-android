@@ -3,16 +3,10 @@ package com.example.progetto_android;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -133,7 +127,7 @@ public class GameScreen extends AppCompatActivity {
         alert.show();
     }
 
-    private static void saveScore(){
+    /*private static void saveScore(){
         String fileName = Environment.getExternalStorageDirectory().getPath()
                 + "/"
                 + activity.getResources().getString(R.string.app_name);
@@ -159,7 +153,7 @@ public class GameScreen extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static int toPixels(int dp){
         int px = (int) TypedValue.applyDimension(

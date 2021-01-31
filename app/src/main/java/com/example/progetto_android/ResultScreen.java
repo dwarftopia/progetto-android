@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -29,9 +30,10 @@ public class ResultScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_screen);
+        this.setFinishOnTouchOutside(false);
+        getSupportActionBar().hide();
 
         Intent t = getIntent();
-
         Button btnSave = (Button) findViewById(R.id.btnSave);
         Button btnReturn = (Button) findViewById(R.id.btnReturn);
         layout_bitmapArea = (ConstraintLayout) findViewById(R.id.layout_bitmapArea);
@@ -96,6 +98,13 @@ public class ResultScreen extends AppCompatActivity {
         }
     }
 
+    private Bitmap getBitmap(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
+
     private void saveResult(){
         String fileName = Environment.getExternalStorageDirectory().getPath()
                 + "/"
@@ -112,8 +121,7 @@ public class ResultScreen extends AppCompatActivity {
                 + Calendar.getInstance().get(Calendar.MINUTE)
                 + Calendar.getInstance().get(Calendar.SECOND)
                 + ".png";
-        Bitmap bitmap = Bitmap.createBitmap(layout_bitmapArea.getWidth(), layout_bitmapArea.getHeight(), Bitmap.Config.ARGB_8888);
-
+        Bitmap bitmap = getBitmap(layout_bitmapArea);
         try {
             FileOutputStream out = new FileOutputStream(fileName);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);

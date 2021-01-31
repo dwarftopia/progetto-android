@@ -4,15 +4,12 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if(ContextCompat.checkSelfPermission(MainActivity.this, myPermission)!=PackageManager.PERMISSION_GRANTED)
-            requestPermission();
+        /*if(ContextCompat.checkSelfPermission(MainActivity.this, myPermission)!=PackageManager.PERMISSION_GRANTED)
+            requestPermission();*/
     }
 
     private void startupAnimation(){    //scrive il titolo a mo' di "terminale", fade in dei bottoni
@@ -167,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         exitApp();
     }
 
-    private void requestPermission(){
+    /*private void requestPermission(){
         if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, myPermission)){   //se true, l'utente ha rifiutato il permesso in passato
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Storage access");
@@ -197,5 +194,5 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
         }
-    }
+    }*/
 }

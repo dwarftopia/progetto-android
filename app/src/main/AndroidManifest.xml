@@ -4,13 +4,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/frog"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/frog"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Progettoandroid">
-        <activity android:name=".ResultScreen"></activity>
+        <activity android:name=".ResultScreen"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog"
+            android:excludeFromRecents="true" />
         <activity
             android:name=".GameScreen"
             android:screenOrientation="portrait" />
