@@ -3,6 +3,8 @@ package com.example.progetto_android;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ public class SettingsHelp extends AppCompatActivity {
 
         Switch swcAudio = (Switch) findViewById(R.id.swcAudio);
         TextView lblExplanation = (TextView) findViewById(R.id.lblExplanation);
+        Button btnBack = (Button) findViewById(R.id.btnBack);
         lblExplanation.setText(getResources().getString(R.string.explanation));
 
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
@@ -31,5 +34,16 @@ public class SettingsHelp extends AppCompatActivity {
                 editor.apply();
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 }

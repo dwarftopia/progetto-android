@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -69,9 +68,6 @@ public class MainActivity extends AppCompatActivity {
         btnSettings.setEnabled(false);
         lblMainTitle.setText("_");
 
-        int resID=getResources().getIdentifier("keyboard_type.mp3", "raw", getPackageName());
-        MediaPlayer mediaPlayer = MediaPlayer.create(this,resID);
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -88,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                                 lblMainTitle.setText(finalAux + "_");
                             }
                         });
-                        mediaPlayer.start();
                         int n = new Random().nextInt(26) + 100;
                         Thread.sleep(n);
                     }
@@ -108,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             lblMainTitle.setText(s);
-                            mediaPlayer.start();
                         }
                     });
                 } catch (InterruptedException e) {

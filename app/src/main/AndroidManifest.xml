@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Progettoandroid">
-        <activity android:name=".SettingsHelp"></activity>
+        <activity
+            android:name=".SettingsHelp"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ResultScreen"
             android:excludeFromRecents="true"
