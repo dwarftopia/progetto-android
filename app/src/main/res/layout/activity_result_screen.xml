@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="400dp"
+    android:layout_width="375dp"
     android:layout_height="300dp"
     android:background="@color/design_default_color_background"
     android:orientation="vertical"
@@ -28,7 +28,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_textArea"
-            android:layout_width="300dp"
+            android:layout_width="275dp"
             android:layout_height="match_parent"
             android:background="@drawable/frame"
             android:orientation="vertical"
