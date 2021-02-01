@@ -49,7 +49,7 @@ public class ResultScreen extends Activity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(permissionDenied){
+                if(!permissionDenied){
                     if(ContextCompat.checkSelfPermission(ResultScreen.this, myPermission)!= PackageManager.PERMISSION_GRANTED)
                         requestPermission();
                     saveResult();
@@ -85,7 +85,7 @@ public class ResultScreen extends Activity {
             android.app.AlertDialog alert = builder.create();
             alert.show();
         } else {
-            if(permissionDenied) {  //se il flag è false vuol dire che il permesso non è mai stato chiesto
+            if(!permissionDenied) {  //se il flag è false vuol dire che il permesso non è mai stato chiesto
                 ActivityCompat.requestPermissions(ResultScreen.this, new String[]{myPermission}, MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
             }
         }
