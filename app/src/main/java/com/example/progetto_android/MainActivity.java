@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btnStartGame;
     private Button btnExitApp;
     private Button btnSettings;
-    private ImageView imgFrogSlide;
     private int mode;
     private int time;
 
@@ -37,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         btnStartGame = (Button) findViewById(R.id.btnStartGame);
         btnExitApp = (Button) findViewById(R.id.btnExitApp);
         btnSettings = (Button) findViewById(R.id.btnSettings);
-        imgFrogSlide = (ImageView) findViewById(R.id.imgFrogSlide);
         sharedPref = getPreferences(Context.MODE_PRIVATE);
 
         startupAnimation();
@@ -69,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         btnExitApp.setEnabled(false);
         btnSettings.setAlpha(0);
         btnSettings.setEnabled(false);
-        imgFrogSlide.setImageAlpha(0);
         lblMainTitle.setText("_");
 
         new Thread(new Runnable() {
@@ -98,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                             btnStartGame.animate().alpha(1.0f).setDuration(750).start();
                             btnExitApp.animate().alpha(1.0f).setDuration(750).start();
                             btnSettings.animate().alpha(1.0f).setDuration(750).start();
-                            imgFrogSlide.animate().alpha(1.0f).setDuration(750).start();
                             btnStartGame.setEnabled(true);
                             btnExitApp.setEnabled(true);
                             btnSettings.setEnabled(true);
