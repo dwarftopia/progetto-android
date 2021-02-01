@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.concurrent.Semaphore;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -50,8 +51,15 @@ public class ResultScreen extends Activity {
             @Override
             public void onClick(View v) {
                 if(!permissionDenied){
-                    if(ContextCompat.checkSelfPermission(ResultScreen.this, myPermission)!= PackageManager.PERMISSION_GRANTED)
+                    Semaphore mutex = new Semaphore(0);
+                    try {
+                        mutex.acquire();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(ContextCompat.checkSelfPermission(ResultScreen.this, myPermission)!=PackageManager.PERMISSION_GRANTED)
                         requestPermission();
+                    mutex.release();
                     saveResult();
                     finish();
                     GameScreen.activity.finish();
