@@ -27,7 +27,7 @@ public class TimerService extends Service {
                 time=60;
                 break;
             case 2:
-                time=180;
+                time=120;
                 break;
         }
         new Thread(new Runnable() {

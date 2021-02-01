@@ -8,7 +8,7 @@
     <array name="times">
         <item>short (30s)</item>
         <item>normal (60s)</item>
-        <item>long (180s)</item>
+        <item>long (120s)</item>
     </array>
 
     <string name="app_name">Ultimate Bug Catcher</string>
