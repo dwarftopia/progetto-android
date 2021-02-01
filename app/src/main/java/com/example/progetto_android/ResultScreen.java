@@ -51,18 +51,13 @@ public class ResultScreen extends Activity {
             @Override
             public void onClick(View v) {
                 if(!permissionDenied){
-                    Semaphore mutex = new Semaphore(0);
-                    try {
-                        mutex.acquire();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if(ContextCompat.checkSelfPermission(ResultScreen.this, myPermission)!=PackageManager.PERMISSION_GRANTED)
+                    if(ContextCompat.checkSelfPermission(ResultScreen.this, myPermission)==PackageManager.PERMISSION_GRANTED){
+                        saveResult();
+                        finish();
+                        GameScreen.activity.finish();
+                    } else {
                         requestPermission();
-                    mutex.release();
-                    saveResult();
-                    finish();
-                    GameScreen.activity.finish();
+                    }
                 } else {
                     Toast.makeText(ResultScreen.this, "It is not possible to save the result to internal storage without the requested permission.", Toast.LENGTH_LONG).show();
                 }
