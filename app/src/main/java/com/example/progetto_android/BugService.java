@@ -89,7 +89,11 @@ public class BugService extends Service {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(GameScreen.toPixels(left),GameScreen.toPixels(top),GameScreen.toPixels(right),GameScreen.toPixels(bottom));
+        layoutParams.setMargins(
+                GameScreen.toPixels(left),
+                GameScreen.toPixels(top),
+                GameScreen.toPixels(right),
+                GameScreen.toPixels(bottom));
         GameScreen.imgBug.setLayoutParams(layoutParams);
         int angle = new Random().nextInt(360);
         GameScreen.imgBug.setRotation(angle);
