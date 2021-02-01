@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:animateLayoutChanges="true">
 
     <Button
         android:id="@+id/btnSettings"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:fontFamily="serif-monospace"
         android:text="Settings"
         android:textAlignment="viewStart"
+        android:textColor="@color/darker_green"
         android:textSize="18sp"
         android:textStyle="bold"
         app:cornerRadius="0dp"
@@ -26,10 +28,11 @@
     <Button
         android:id="@+id/btnExitApp"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:fontFamily="serif-monospace"
         android:text="Exit"
         android:textAlignment="viewStart"
+        android:textColor="@color/darker_green"
         android:textSize="18sp"
         android:textStyle="bold"
         app:cornerRadius="0dp"
@@ -45,8 +48,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="serif-monospace"
-        android:text="Ultimate Bug Catcher"
+        android:text="@string/app_name"
         android:textAlignment="viewStart"
+        android:textColor="@color/darker_green"
         android:textSize="44sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,10 +63,11 @@
     <Button
         android:id="@+id/btnStartGame"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:fontFamily="serif-monospace"
         android:text="Start the game"
         android:textAlignment="viewStart"
+        android:textColor="@color/darker_green"
         android:textSize="18sp"
         android:textStyle="bold"
         app:cornerRadius="0dp"
@@ -72,4 +77,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/imgFrogSlide"
+        android:layout_width="300dp"
+        android:layout_height="176dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:srcCompat="@drawable/frog1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,9 +6,9 @@
         <!--<item>Java</item>-->
     </array>
     <array name="times">
-        <item>short (30s)</item>
-        <item>normal (60s)</item>
-        <item>long (120s)</item>
+        <item>short</item>
+        <item>normal</item>
+        <item>long</item>
     </array>
 
     <string name="app_name">Ultimate Bug Catcher</string>

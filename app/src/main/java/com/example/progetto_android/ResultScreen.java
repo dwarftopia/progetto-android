@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.concurrent.Semaphore;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -44,9 +43,12 @@ public class ResultScreen extends Activity {
         Button btnSave = (Button) findViewById(R.id.btnSave);
         Button btnReturn = (Button) findViewById(R.id.btnReturn);
         layout_bitmapArea = (ConstraintLayout) findViewById(R.id.layout_bitmapArea);
-        TextView lblResult = (TextView) findViewById(R.id.lblResult);
+        TextView lblResult1 = (TextView) findViewById(R.id.lblResult1);
+        TextView lblResult2 = (TextView) findViewById(R.id.lblResult2);
 
-        lblResult.setText(t.getStringExtra("stats"));
+        lblResult1.setText("Mode:\n\nTime:\n\nScore:");
+        String stats = t.getStringExtra("stats").split(" ")[0] + "\n\n" + t.getStringExtra("stats").split(" ")[1] + "\n\n" + t.getStringExtra("stats").split(" ")[2];
+        lblResult2.setText(stats);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

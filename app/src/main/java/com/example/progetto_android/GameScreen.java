@@ -4,11 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -37,8 +35,7 @@ public class GameScreen extends AppCompatActivity {
         mode = t.getIntExtra("mode", 1);
         time = t.getIntExtra("time", 1);
         score = 0;
-        stats = "Mode:\n        " + getResources().getStringArray(R.array.modes)[mode] + "\n";
-        stats += "Time:\n        " + getResources().getStringArray(R.array.times)[time] + "\n";
+        stats = getResources().getStringArray(R.array.modes)[mode] + " " + getResources().getStringArray(R.array.times)[time];
         activity = this;
         stopped = false;
 
@@ -103,7 +100,7 @@ public class GameScreen extends AppCompatActivity {
             mediaPlayer=null;
         }
         if(!stopped){
-            stats += "Score:\n        " + score;
+            stats += " " + score;
             Intent t = new Intent(GameScreen.activity, ResultScreen.class);
             t.putExtra("stats", stats);
             activity.startActivity(t);

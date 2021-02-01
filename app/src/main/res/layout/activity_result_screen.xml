@@ -39,6 +39,23 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
+            <TextView
+                android:id="@+id/lblResult2"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:fontFamily="serif-monospace"
+                android:gravity="end|center_vertical"
+                android:lineSpacingExtra="8sp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/lblResult1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"/>
+
             <ImageView
                 android:id="@+id/imgFrogSide2"
                 android:layout_width="41dp"
@@ -52,8 +69,8 @@
                 app:layout_constraintVertical_bias="0.5" />
 
             <TextView
-                android:id="@+id/lblResult"
-                android:layout_width="250dp"
+                android:id="@+id/lblResult1"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:fontFamily="serif-monospace"
                 android:gravity="center_vertical"
@@ -63,7 +80,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintStart_toEndOf="@+id/imgFrogSide2"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
@@ -79,8 +96,10 @@
             android:id="@+id/btnSave"
             android:layout_width="150dp"
             android:layout_height="50dp"
+            android:background="@android:drawable/btn_default_material"
             android:fontFamily="serif-monospace"
             android:text="Save result"
+            android:textColor="@color/darker_green"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -94,8 +113,10 @@
             android:id="@+id/btnReturn"
             android:layout_width="150dp"
             android:layout_height="50dp"
+            android:background="@android:drawable/btn_default_material"
             android:fontFamily="serif-monospace"
             android:text="Back to menu"
+            android:textColor="@color/darker_green"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
