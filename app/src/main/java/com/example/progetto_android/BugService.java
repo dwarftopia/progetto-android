@@ -30,12 +30,11 @@ public class BugService extends Service {
             case 0:
                 intervalBase = 1500;
                 break;
+            case 1:
+                intervalBase = 1000;
+                break;
             case 2:
                 intervalBase = 500;
-                break;
-            case 1:
-            default:
-                intervalBase = 1000;
                 break;
         }
         new Thread(new Runnable() {
